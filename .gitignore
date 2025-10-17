@@ -1,1 +1,5 @@
 /.pytest_cache/
+/homework_1/.DS_Store
+/homework_1/.idea
+/.DS_Store
+*/**/__pycache__
