@@ -3,3 +3,4 @@
 /homework_1/.idea
 /.DS_Store
 */**/__pycache__
+.benchmarks/
