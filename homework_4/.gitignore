@@ -1,0 +1,26 @@
+# User files
+back_up.txt
+readme
+README
+README_BST_improvements.md
+
+# Python cache
+__pycache__/
+*/**/__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# System files
+.DS_Store
+/homework_1/.DS_Store
+
+# Testing
+.pytest_cache/
+/.pytest_cache/
+
+# Benchmarks
+.benchmarks/
+
+# IDE
+/homework_1/.idea
