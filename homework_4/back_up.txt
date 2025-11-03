@@ -1,0 +1,134 @@
+class TreeNode:
+
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+# def is_valid_BST(root, allow_duplicates=False, duplicates_left=True):
+#     """
+#     Проверяет, является ли бинарное дерево корректным бинарным деревом поиска (BST).
+
+#     Улучшенная версия с поддержкой:
+#     - Дубликатов (опционально)
+#     - None границ вместо ±inf (универсальность для любых типов)
+
+#     Временная сложность: O(n), где n - количество узлов
+#     Пространственная сложность: O(h), где h - высота дерева (стек рекурсии)
+
+#     Args:
+#         root: корень бинарного дерева
+#         allow_duplicates: разрешить дубликаты (по умолчанию False)
+#         duplicates_left: если True, дубликаты идут влево, иначе вправо
+
+#     Returns:
+#         bool: True если дерево является валидным BST
+#     """
+
+#     def validate(node, min_val, max_val, is_left_child):
+#         if node is None:
+#             return True
+
+#         # Проверяем нижнюю границу
+#         if min_val is not None:
+#             if node.val < min_val:
+#                 return False
+#             elif node.val == min_val:
+#                 # Равенство с min_val допустимо только для правых детей с дубликатами справа
+#                 if not allow_duplicates:
+#                     return False
+#                 if is_left_child is None:
+#                     pass
+#                 elif not duplicates_left and not is_left_child:
+#                     pass  # Дубликаты справа - разрешаем для правого ребёнка
+#                 else:
+#                     return False
+
+#         # Проверяем верхнюю границу
+#         if max_val is not None:
+#             if node.val > max_val:
+#                 return False
+#             elif node.val == max_val:
+#                 # Равенство с max_val допустимо только для левых детей с дубликатами слева
+#                 if not allow_duplicates:
+#                     return False
+#                 if is_left_child is None:
+#                     pass
+#                 elif duplicates_left and is_left_child:
+#                     pass  # Дубликаты слева - разрешаем для левого ребёнка
+#                 else:
+#                     return False
+
+#         # Рекурсивно проверяем поддеревья
+#         return (validate(node.left, min_val, node.val, True) and
+#                 validate(node.right, node.val, max_val, False))
+
+#     return validate(root, None, None, None)
+
+
+# def is_valid_BST_iterative(root, allow_duplicates=False):
+#     """
+#     Итеративная версия проверки BST через in-order обход.
+#     Защищает от RecursionError на глубоких деревьях.
+
+#     Временная сложность: O(n)
+#     Пространственная сложность: O(h) для стека
+
+#     Args:
+#         root: корень бинарного дерева
+#         allow_duplicates: разрешить дубликаты (по умолчанию False)
+
+#     Returns:
+#         bool: True если дерево является валидным BST
+#     """
+#     if root is None:
+#         return True
+
+#     stack = []
+#     prev_val = None
+#     current = root
+
+#     # In-order обход: левое поддерево -> узел -> правое поддерево
+#     while stack or current:
+#         # Идём влево до конца
+#         while current:
+#             stack.append(current)
+#             current = current.left
+
+#         # Обрабатываем узел
+#         current = stack.pop()
+
+#         # Проверяем порядок значений
+#         if prev_val is not None:
+#             if allow_duplicates:
+#                 if current.val < prev_val:
+#                     return False
+#             else:
+#                 if current.val <= prev_val:
+#                     return False
+
+#         prev_val = current.val
+#         current = current.right
+
+#     return True
+    
+    # def validate(node, min_val, max_val):
+
+    #     # Пустое дерево является валидным BST
+    #     if node is None:
+    #         return True
+
+    #     # Проверяем, что значение узла находится в допустимом диапазоне
+    #     if node.val <= min_val or node.val >= max_val:
+    #         return False
+
+    #     # Рекурсивно проверяем левое и правое поддеревья
+    #     # Для левого поддерева: все значения должны быть < node.val
+    #     # Для правого поддерева: все значения должны быть > node.val
+    #     return (validate(node.left, min_val, node.val) and
+    #             validate(node.right, node.val, max_val))
+
+    # # Начинаем проверку с корня, используя бесконечные границы
+    # return validate(root, float('-inf'), float('inf'))
+
+    #def is_valid_bst(root):
