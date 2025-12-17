@@ -1,0 +1,46 @@
+"""
+Реализовать поиск подстроки в строке с помощью алгоритма Рабина-Карпа.
+"""
+
+def rabin_karp(text: str, pattern: str) -> list[int]:
+    """
+    Возвращает список индексов начала всех вхождений.
+    """
+    if not pattern or not text or len(pattern) > len(text):
+        return []
+
+    result = []
+    n = len(text)
+    m = len(pattern)
+
+    # Параметры хеш-функции
+    d = 256  # основание полиномиального хеша
+    q = 101  # простое число для взятия модуля для уменьшения коллизии
+
+    # Вычисляем d^(m-1) mod q для использования в скользящем хеше
+    h = pow(d, m - 1, q)
+
+    # Вычисляем начальные хеши паттерна и первого окна текста
+    pattern_hash = 0
+    window_hash = 0
+
+    for i in range(m):
+        pattern_hash = (d * pattern_hash + ord(pattern[i])) % q
+        window_hash = (d * window_hash + ord(text[i])) % q
+
+    # Скользящее окно по тексту
+    for i in range(n - m + 1):
+        # Если хеши совпали, проверяем посимвольно (защита от коллизий)
+        if pattern_hash == window_hash:
+            if text[i:i + m] == pattern:
+                result.append(i)
+
+        # Вычисляем хеш следующего окна (скользящий/rolling хеш)
+        if i < n - m:
+            left = ord(text[i])
+            right = ord(text[i + m])
+            # (h - left*high) убирает старший символ, затем *base и +right добавляет новый
+            window_hash = (window_hash - left * h) % q
+            window_hash = (window_hash * d + right) % q
+
+    return result
